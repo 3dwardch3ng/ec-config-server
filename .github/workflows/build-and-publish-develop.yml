@@ -65,9 +65,10 @@ jobs:
         run: |
           pwd
           ls
-          ls ./ec-config-server
-          ls ./ec-config-server/target
-          ls ./ec-config-server/script
+          echo "target dir"
+          ls ./target
+          echo "script dir"
+          ls ./script
       - name: Prepare
         run: |
           platform=${{ matrix.platform }}
