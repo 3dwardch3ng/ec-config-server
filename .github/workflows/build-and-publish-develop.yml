@@ -65,7 +65,6 @@ jobs:
           mvn -B package \
             -P homelab \
             --settings=${{ github.workspace }}/.mvn/settings.xml
-            - name: Docker meta
       - name: Setup Docker Metadata
         id: meta
         uses: docker/metadata-action@v5
