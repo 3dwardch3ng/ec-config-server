@@ -1,4 +1,4 @@
-name: ci
+name: Build and Publish Maven Artifact and Docker Image (Develop)
 
 on:
   workflow_dispatch:
