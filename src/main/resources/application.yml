@@ -10,27 +10,28 @@ management:
     env:
       post:
         enabled: true
+    logfile:
+      external-file: '/app/log/${spring.application.name}.log'
     web:
       exposure:
         include: '*'
     health:
       show-details: always
 
+logging:
+  file:
+    name: '/app/log/${spring.application.name}.log'
+
 spring:
+  profiles:
+    active: native
   cloud:
-    kubernetes:
-      discovery:
-        enabled: false
-        all-namespaces: false
-        service-labels:
-          spring-boot: true
-      enabled: false
-  config:
-    server:
-      git:
-        uri: file://opt/config
-      health:
-        enabled: false
+    config:
+      server:
+        native:
+          search-locations: ${CONFIG_NATIVE_SEARCH_LOCATION:/opt/config}
+        health:
+          enabled: false
 
 eureka:
   client:
