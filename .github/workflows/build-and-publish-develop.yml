@@ -61,6 +61,13 @@ jobs:
           mvn -B package \
             -P homelab \
             --settings=${{ github.workspace }}/.mvn/settings.xml
+      - name: Display directories
+        run: |
+          pwd
+          ls
+          ls ./ec-config-server
+          ls ./ec-config-server/target
+          ls ./ec-config-server/script
       - name: Prepare
         run: |
           platform=${{ matrix.platform }}
