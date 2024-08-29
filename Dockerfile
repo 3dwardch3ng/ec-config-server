@@ -8,8 +8,8 @@ FROM builder AS app
 
 WORKDIR /app
 
-RUN adduser --system --group --uid 1001 --home /app --no-create-home --quiet --shell /bin/bash app
-RUN chown app /app
+RUN addgroup --gid 1001 app && adduser --uid 1001 --gid 1001 --home /app
+RUN apt clean && chown app /app
 
 COPY --chown=1001 --from=builder /opt /opt
 
