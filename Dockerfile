@@ -8,7 +8,7 @@ FROM builder AS app
 
 WORKDIR /app
 
-RUN addgroup -g 1001 app && adduser -u 1001 -G app -D app
+RUN adduser --system --group --uid 1001 --home /app --no-create-home --quiet --shell /bin/bash app
 RUN chown app /app
 
 COPY --chown=1001 --from=builder /opt /opt
