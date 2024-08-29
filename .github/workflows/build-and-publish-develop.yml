@@ -27,6 +27,8 @@ jobs:
           java-version: 17
       - name: Maven Publish
         env:
+          NEXUS_USERNAME: 'edward'
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
           RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
