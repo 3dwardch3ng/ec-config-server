@@ -9,8 +9,7 @@ FROM builder AS app
 WORKDIR /app
 
 RUN addgroup -g 1001 app && adduser -u 1001 -G app -D app
-RUN rm -rf /var/cache/apk/* \
-    && chown app /app
+RUN chown app /app
 
 COPY --chown=1001 --from=builder /opt /opt
 
