@@ -1,0 +1,37 @@
+server:
+  port: 8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    env:
+      post:
+        enabled: true
+    web:
+      exposure:
+        include: '*'
+    health:
+      show-details: always
+
+spring:
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: false
+        all-namespaces: false
+        service-labels:
+          spring-boot: true
+      enabled: false
+  config:
+    server:
+      git:
+        uri: file://opt/config
+      health:
+        enabled: false
+
+eureka:
+  client:
+    enabled: false

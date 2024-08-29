@@ -1,0 +1,5 @@
+application:
+  name: ec-config-server
+spring:
+  application:
+    name: ${application.name}
