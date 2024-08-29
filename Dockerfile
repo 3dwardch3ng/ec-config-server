@@ -8,7 +8,7 @@ FROM builder AS app
 
 WORKDIR /app
 
-RUN addgroup --gid 1001 app && adduser --uid 1001 --gid 1001 --home /app
+RUN addgroup --gid 1001 app && adduser --uid 1001 --gid 1001 --home /app app
 RUN apt clean && chown app /app
 
 COPY --chown=1001 --from=builder /opt /opt
