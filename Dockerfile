@@ -1,4 +1,4 @@
-FROM bitnami/java:17-debian-12
+FROM bitnami/java:17.0.12-10-debian-12-r4
 
 COPY target/*.jar /app/app.jar
 
