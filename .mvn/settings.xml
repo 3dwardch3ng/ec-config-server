@@ -36,30 +36,6 @@
                     <layout>default</layout>
                 </repository>
             </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>nexus-central</id>
-                    <name>Home Lab Nexus Maven Central</name>
-                    <releases>
-                        <enabled>true</enabled>
-                        <checksumPolicy>warn</checksumPolicy>
-                    </releases>
-                    <url>${env.NEXUS_CENTRAL_REPOSITORY_URL}</url>
-                    <layout>default</layout>
-                </pluginRepository>
-            </pluginRepositories>
         </profile>
     </profiles>
-    <servers>
-        <server>
-            <id>nexus-snapshot</id>
-            <username>${env.NEXUS_USERNAME}</username>
-            <password>${env.NEXUS_PASSWORD}</password>
-        </server>
-        <server>
-            <id>nexus-release</id>
-            <username>${env.NEXUS_USERNAME}</username>
-            <password>${env.NEXUS_PASSWORD}</password>
-        </server>
-    </servers>
 </settings>
