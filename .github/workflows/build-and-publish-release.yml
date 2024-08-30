@@ -31,6 +31,11 @@ jobs:
           git config --global user.name "3dwardch3ng"
           git config --global core.autocrlf input
       - name: Start release
+        env:
+          NEXUS_USERNAME: 'edward'
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
+          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
           mvn gitflow:release-start -B -DpushRemote=true -DallowSnapshots=true \
             -P homelab \
@@ -46,13 +51,17 @@ jobs:
             -P homelab \
             --settings=${{ github.workspace }}/.mvn/settings.xml
       - name: Finish release
+        env:
+          GITHUB_ACTOR: 3dwardch3ng
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NEXUS_USERNAME: 'edward'
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
+          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
           mvn gitflow:release-finish -B -DpushRemote=true -DallowSnapshots=true \
             -P homelab \
             --settings=${{ github.workspace }}/.mvn/settings.xml
-        env:
-          GITHUB_ACTOR: 3dwardch3ng
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   build-docker:
     runs-on: ubuntu-latest
     strategy:
