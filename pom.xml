@@ -41,6 +41,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <start-class>sydney.cheng.microservice.Application</start-class>
         <!-- Sonar Properties -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
@@ -72,7 +73,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>sydney.cheng.microservice.Application</mainClass>
+                    <mainClass>${start-class}</mainClass>
                     <layout>JAR</layout>
                 </configuration>
                 <executions>
