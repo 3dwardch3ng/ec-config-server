@@ -67,7 +67,6 @@ jobs:
         run: |
           mvn -B deploy -P homelab
   build-docker:
-    if: false
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
