@@ -25,6 +25,23 @@ jobs:
         with:
           distribution: zulu
           java-version: 17
+      - uses: s4u/maven-settings-action@v3.0.0
+        with:
+          properties: '[
+            {"altSnapshotDeploymentRepository", "nexus-snapshot::${env.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL}"},
+            {"altReleaseDeploymentRepository", "nexus-release::${env.RELEASE_DEPLOYMENT_REPOSITORY_URL}"}
+          ]'
+          servers: |
+            [{
+              "id": "nexus-snapshot",
+              "username": ${env.NEXUS_USERNAME}
+              "password": ${env.NEXUS_PASSWORD}
+            },
+            {
+              "id": "nexus-release",
+              "username": ${env.NEXUS_USERNAME}
+              "password": ${env.NEXUS_PASSWORD}
+            }]
       - name: Maven Publish
         run: |
           mvn -B deploy
