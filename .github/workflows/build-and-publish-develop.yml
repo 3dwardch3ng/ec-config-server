@@ -27,12 +27,6 @@ jobs:
           java-version: 17
       - name: maven-settings-xml-action
         uses: whelk-io/maven-settings-xml-action@v22
-        env:
-          NEXUS_USERNAME: 'edward'
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          MAVEN_PUBLIC_REPOSITORY_URL: ${{ secrets.MAVEN_PUBLIC_REPOSITORY_URL }}
-          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
-          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         with:
           profiles: >
             [{
@@ -62,6 +56,12 @@ jobs:
               "password": "${env.NEXUS_PASSWORD}"
             }]
       - name: Maven Publish
+        env:
+          NEXUS_USERNAME: 'edward'
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          MAVEN_PUBLIC_REPOSITORY_URL: ${{ secrets.MAVEN_PUBLIC_REPOSITORY_URL }}
+          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
+          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
           mvn -B deploy -P homelab
   build-docker:
