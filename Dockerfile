@@ -21,3 +21,5 @@ COPY --chown=1001 script/entrypoint.sh /opt/scripts/entrypoint.sh
 RUN chmod 0740 /opt/scripts/entrypoint.sh
 
 CMD /opt/scripts/entrypoint.sh
+
+EXPOSE 8100
