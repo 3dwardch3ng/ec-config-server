@@ -1,3 +1,6 @@
+application:
+  name: ec-config-server
+
 server:
   port: 8888
 
@@ -23,6 +26,8 @@ logging:
     name: '/app/log/${spring.application.name}.log'
 
 spring:
+  application:
+    name: ${application.name}
   profiles:
     active: native
   cloud:
