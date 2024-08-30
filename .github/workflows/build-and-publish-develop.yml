@@ -202,7 +202,6 @@ jobs:
         id: project-version
         run: |
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout -P homelab )
-          echo $VERSION
           echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Show extracted Maven project version
         run: echo ${{ steps.project-version.outputs.version }}
