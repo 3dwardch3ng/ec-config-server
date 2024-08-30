@@ -69,7 +69,7 @@ jobs:
           git config --global core.autocrlf input
       - name: Start release
         run: |
-          mvn -X gitflow:release-start -B -DpushRemote=true -DallowSnapshots=true \
+          mvn gitflow:release-start -B -DpushRemote=true -DallowSnapshots=true \
             -P homelab
       - name: Maven Publish
         run: |
@@ -79,9 +79,11 @@ jobs:
           GITHUB_ACTOR: 3dwardch3ng
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          mvn -X gitflow:release-finish -B -DpushRemote=true -DallowSnapshots=true -P homelab
+          mvn gitflow:release-finish -B -DpushRemote=true -DallowSnapshots=true -P homelab
   build-docker:
     runs-on: ubuntu-latest
+    needs:
+      - build-java
     strategy:
       fail-fast: false
       matrix:
