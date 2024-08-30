@@ -113,11 +113,13 @@ jobs:
           java-version: 17
       - name: Extract Maven project version
         id: project-version
+        env:
+          NEXUS_USERNAME: 'edward'
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
+          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
-          echo ::set-output name=version::\
-          $(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' \
-          --non-recursive exec:exec -P homelab \
-          --settings=${{ github.workspace }}/.mvn/settings.xml)
+          echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec -P homelab --settings=${{ github.workspace }}/.mvn/settings.xml) >> $GITHUB_OUTPUT
       - name: Show extracted Maven project version
         run: echo ${{ steps.project-version.outputs.version }}
       - name: Download digests
