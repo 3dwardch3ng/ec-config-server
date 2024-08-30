@@ -61,11 +61,6 @@ jobs:
           mvn -B package \
             -P homelab \
             --settings=${{ github.workspace }}/.mvn/settings.xml
-      - name: Extract Maven project version
-        id: project-version
-        run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-      - name: Show extracted Maven project version
-        run: echo ${{ steps.project-version.outputs.version }}
       - name: Prepare
         run: |
           platform=${{ matrix.platform }}
@@ -109,6 +104,22 @@ jobs:
     needs:
       - build-docker
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4.2.2
+        with:
+          distribution: zulu
+          java-version: 17
+      - name: Extract Maven project version
+        id: project-version
+        run: |
+          echo ::set-output name=version::\
+          $(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' \
+          --non-recursive exec:exec -P homelab \
+          --settings=${{ github.workspace }}/.mvn/settings.xml)
+      - name: Show extracted Maven project version
+        run: echo ${{ steps.project-version.outputs.version }}
       - name: Download digests
         uses: actions/download-artifact@v4
         with:
