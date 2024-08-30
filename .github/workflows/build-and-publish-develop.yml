@@ -35,12 +35,12 @@ jobs:
             [{
               "id": "nexus-snapshot",
               "username": "edward"
-              "password": ${{ secrets.NEXUS_PASSWORD }}
+              "password": "${{ secrets.NEXUS_PASSWORD }}"
             },
             {
               "id": "nexus-release",
               "username": "edward"
-              "password": ${{ secrets.NEXUS_PASSWORD }}
+              "password": "${{ secrets.NEXUS_PASSWORD }}"
             }]
       - name: Maven Publish
         run: |
