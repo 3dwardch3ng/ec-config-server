@@ -25,26 +25,45 @@ jobs:
         with:
           distribution: zulu
           java-version: 17
-      - uses: s4u/maven-settings-action@v3.0.0
+      - name: maven-settings-xml-action
+        uses: whelk-io/maven-settings-xml-action@v22
+        env:
+          NEXUS_USERNAME: 'edward'
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          MAVEN_PUBLIC_REPOSITORY_URL: ${{ secrets.MAVEN_PUBLIC_REPOSITORY_URL }}
+          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
+          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         with:
-          properties: '[
-            {"altSnapshotDeploymentRepository", "nexus-snapshot::${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}"},
-            {"altReleaseDeploymentRepository", "nexus-release::${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}"}
-          ]'
-          servers: |
+          profiles: >
+            [{
+              "id": "homelab",
+              "properties": {
+                "altSnapshotDeploymentRepository": "nexus-snapshot::${env.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL}",
+                "altReleaseDeploymentRepository": "nexus-release::${env.RELEASE_DEPLOYMENT_REPOSITORY_URL}"
+              }
+            }]
+          repositories: >
+            [{
+              "id": "maven-public",
+              "url": "${env.MAVEN_PUBLIC_REPOSITORY_URL}",
+              "snapshots": {
+                "enabled": "true"
+              }
+            }]
+          servers: >
             [{
               "id": "nexus-snapshot",
-              "username": "edward"
-              "password": "${{ secrets.NEXUS_PASSWORD }}"
+              "username": "${env.NEXUS_USERNAME}",
+              "password": "${env.NEXUS_PASSWORD}"
             },
             {
               "id": "nexus-release",
-              "username": "edward"
-              "password": "${{ secrets.NEXUS_PASSWORD }}"
+              "username": "${env.NEXUS_USERNAME}",
+              "password": "${env.NEXUS_PASSWORD}"
             }]
       - name: Maven Publish
         run: |
-          mvn -B deploy
+          mvn -B deploy -P homelab
   build-docker:
     if: false
     runs-on: ubuntu-latest
