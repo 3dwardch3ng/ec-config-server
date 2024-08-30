@@ -119,7 +119,8 @@ jobs:
           SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
           RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
-          echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec -P homelab --settings=${{ github.workspace }}/.mvn/settings.xml) >> $GITHUB_OUTPUT
+          VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout -P homelab --settings=${{ github.workspace }}/.mvn/settings.xml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Show extracted Maven project version
         run: echo ${{ steps.project-version.outputs.version }}
       - name: Download digests
