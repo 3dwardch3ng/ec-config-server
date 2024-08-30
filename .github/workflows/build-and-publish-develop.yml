@@ -7,6 +7,11 @@ on:
       - develop
 
 env:
+  NEXUS_USERNAME: 'edward'
+  NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+  MAVEN_PUBLIC_REPOSITORY_URL: ${{ secrets.MAVEN_PUBLIC_REPOSITORY_URL }}
+  SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
+  RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
   REGISTRY_IMAGE: edeedeeed/ec-config-server
 
 jobs:
@@ -58,12 +63,6 @@ jobs:
               "password": "${env.NEXUS_PASSWORD}"
             }]
       - name: Maven Publish
-        env:
-          NEXUS_USERNAME: 'edward'
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          MAVEN_PUBLIC_REPOSITORY_URL: ${{ secrets.MAVEN_PUBLIC_REPOSITORY_URL }}
-          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
-          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
           mvn -B deploy -P homelab
   build-docker:
@@ -115,12 +114,6 @@ jobs:
               "password": "${env.NEXUS_PASSWORD}"
             }]
       - name: Maven Package
-        env:
-          NEXUS_USERNAME: 'edward'
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          MAVEN_PUBLIC_REPOSITORY_URL: ${{ secrets.MAVEN_PUBLIC_REPOSITORY_URL }}
-          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
-          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
           mvn -B package -P homelab
       - name: Prepare
@@ -204,12 +197,6 @@ jobs:
             }]
       - name: Extract Maven project version
         id: project-version
-        env:
-          NEXUS_USERNAME: 'edward'
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          MAVEN_PUBLIC_REPOSITORY_URL: ${{ secrets.MAVEN_PUBLIC_REPOSITORY_URL }}
-          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
-          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout -P homelab)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
