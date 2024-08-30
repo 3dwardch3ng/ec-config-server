@@ -26,16 +26,10 @@ jobs:
           distribution: zulu
           java-version: 17
       - name: Maven Publish
-        env:
-          NEXUS_USERNAME: 'edward'
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
-          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         run: |
-          mvn -B deploy \
-            -P homelab \
-            --settings=${{ github.workspace }}/.mvn/settings.xml
+          mvn -B deploy
   build-docker:
+    if: false
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -100,6 +94,7 @@ jobs:
           if-no-files-found: error
           retention-days: 1
   merge-docker:
+    if: false
     runs-on: ubuntu-latest
     needs:
       - build-docker

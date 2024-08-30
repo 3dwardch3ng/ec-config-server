@@ -37,6 +37,29 @@
         <url>https://github.com/3dwardch3ng/ec-config-server/issues</url>
     </issueManagement>
 
+    <repositories>
+        <repository>
+            <id>nexus-public</id>
+            <url>https://nexus.cluster.edward.sydney/repository/maven-public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>maven-release</id>
+            <name>Nexus Release Repository</name>
+            <url>https://nexus.cluster.edward.sydney/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>Nexus Snapshots Repository</name>
+            <url>https://nexus.cluster.edward.sydney/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
