@@ -26,6 +26,11 @@ jobs:
           distribution: zulu
           java-version: 17
       - uses: s4u/maven-settings-action@v3.0.0
+        env:
+          NEXUS_USERNAME: 'edward'
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          SNAPSHOT_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL }}
+          RELEASE_DEPLOYMENT_REPOSITORY_URL: ${{ secrets.RELEASE_DEPLOYMENT_REPOSITORY_URL }}
         with:
           properties: '[
             {"altSnapshotDeploymentRepository", "nexus-snapshot::${env.SNAPSHOT_DEPLOYMENT_REPOSITORY_URL}"},
@@ -34,13 +39,13 @@ jobs:
           servers: |
             [{
               "id": "nexus-snapshot",
-              "username": ${env.NEXUS_USERNAME}
-              "password": ${env.NEXUS_PASSWORD}
+              "username": "${env.NEXUS_USERNAME}"
+              "password": "${env.NEXUS_PASSWORD}"
             },
             {
               "id": "nexus-release",
-              "username": ${env.NEXUS_USERNAME}
-              "password": ${env.NEXUS_PASSWORD}
+              "username": "${env.NEXUS_USERNAME}"
+              "password": "${env.NEXUS_PASSWORD}"
             }]
       - name: Maven Publish
         run: |
