@@ -1,0 +1,38 @@
+server:
+  port: 8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    env:
+      post:
+        enabled: true
+    logfile:
+      external-file: '/app/log/${spring.application.name}.log'
+    web:
+      exposure:
+        include: '*'
+    health:
+      show-details: always
+
+logging:
+  file:
+    name: '/app/log/${spring.application.name}.log'
+
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: ${CONFIG_NATIVE_SEARCH_LOCATION:/opt/config}
+        health:
+          enabled: false
+
+eureka:
+  client:
+    enabled: false

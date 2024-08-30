@@ -1,0 +1,16 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>3dwardch3ng/renovate-config"
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["maven"],
+      "registryUrls": [
+        "https://nexus.cluster.edward.sydney/repository/maven-releases",
+        "https://nexus.cluster.edward.sydney/repository/maven-snapshots",
+        "https://repo.maven.apache.org/maven2"
+      ]
+    }
+  ]
+}
