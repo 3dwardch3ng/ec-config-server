@@ -1,10 +1,10 @@
-name: SNAPSHOT - Build and Publish Maven Artifact and Docker Image
+name: RELEASE - Build and Publish Maven Artifact and Docker Image
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - develop
+      - main
 
 env:
   REGISTRY_IMAGE: edeedeeed/ec-config-server
@@ -25,6 +25,16 @@ jobs:
         with:
           distribution: zulu
           java-version: 17
+      - name: Config Git
+        run: |
+          git config --global user.email "edward@cheng.sydney"
+          git config --global user.name "3dwardch3ng"
+          git config --global core.autocrlf input
+      - name: Start release
+        run: |
+          mvn gitflow:release-start -B -DpushRemote=true -DallowSnapshots=true \
+            -P homelab \
+            --settings=${{ github.workspace }}/.mvn/settings.xml
       - name: Maven Publish
         env:
           NEXUS_USERNAME: 'edward'
@@ -35,6 +45,14 @@ jobs:
           mvn -B deploy \
             -P homelab \
             --settings=${{ github.workspace }}/.mvn/settings.xml
+      - name: Finish release
+        run: |
+          mvn gitflow:release-finish -B -DpushRemote=true -DallowSnapshots=true \
+            -P homelab \
+            --settings=${{ github.workspace }}/.mvn/settings.xml
+        env:
+          GITHUB_ACTOR: 3dwardch3ng
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   build-docker:
     runs-on: ubuntu-latest
     strategy:
