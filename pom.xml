@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>ec-config-server</artifactId>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.6</version>
 
     <licenses>
         <license>
