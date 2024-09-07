@@ -1,4 +1,4 @@
-FROM bitnami/java:17.0.12-10-debian-12-r4 AS builder
+FROM bitnami/java:17.0.12-10-debian-12-r6 AS builder
 
 WORKDIR /opt
 
