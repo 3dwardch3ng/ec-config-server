@@ -62,9 +62,6 @@ jobs:
               "username": "${env.NEXUS_USERNAME}",
               "password": "${env.NEXUS_PASSWORD}"
             }]
-      - name: Display Maven Settings
-        run: |
-          cat /home/runner/.m2/settings.xml
       - name: Maven Publish
         run: |
           mvn -B deploy -P homelab
