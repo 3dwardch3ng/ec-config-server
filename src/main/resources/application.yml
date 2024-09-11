@@ -37,6 +37,12 @@ spring:
     name: ${application.name}
   profiles:
     active: native
+  security:
+    basic:
+      enabled: true
+    user:
+      name: ${CONFIG_SERVER_USERNAME:configuser}
+      password: ${CONFIG_SERVER_PASSWORD:configPass$1234}
   cloud:
     config:
       server:
@@ -48,3 +54,11 @@ spring:
 eureka:
   client:
     enabled: false
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    displayRequestDuration: true
+  api-docs:
+    path: /api-docs
+  show-actuator: true
