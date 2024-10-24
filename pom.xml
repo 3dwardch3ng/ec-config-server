@@ -7,11 +7,11 @@
     <parent>
         <groupId>sydney.cheng</groupId>
         <artifactId>ec-super-pom</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.7</version>
     </parent>
 
     <artifactId>ec-config-server</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9-SNAPSHOT</version>
 
     <licenses>
         <license>
@@ -42,6 +42,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>sydney.cheng.microservice.Application</start-class>
+        <ec-microservice-commons.version>1.0.1</ec-microservice-commons.version>
         <!-- Sonar Properties -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
@@ -56,7 +57,7 @@
         <dependency>
             <groupId>sydney.cheng</groupId>
             <artifactId>ec-microservice-commons-swagger</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>${ec-microservice-commons.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
